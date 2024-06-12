@@ -12,3 +12,16 @@
     // strong dynamic  password hashing
     $hash = password_hash($mdp, PASSWORD_DEFAULT);
     echo $hash." password_default <br>";
+
+    // compare entered password with hashed one
+    $input = "qwwerty123";
+    $check = password_verify($input, $hash);
+    var_dump($check);
+    echo "<br>";
+
+    if(password_verify($input, $hash)) {
+
+        echo "the password is correct";
+    } else {
+        echo "wrong password";
+    }
