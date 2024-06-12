@@ -1,5 +1,5 @@
 <?php
-    
+    session_start();
     $mdp = "qwwerty123";
 
     // weak static password hashing
@@ -20,8 +20,10 @@
     echo "<br>";
 
     if(password_verify($input, $hash)) {
-
-        echo "the password is correct";
+        $user = "Michael";
+        echo "the password is correct"."<br>";
+        $_SESSION["user"] = $user;
+        echo $user." est connecté";
     } else {
         echo "wrong password";
     }
