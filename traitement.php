@@ -12,7 +12,14 @@
                 $password2 =  filter_input(INPUT_POST, "password2", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
                 if($pseudo && $email && $password && $password2){
-                    var_dump("ok"); die;
+                    // var_dump("ok"); die;
+
+                    $requete = $pdo->prepare("
+                        SELECT *
+                        FROM user
+                        WHERE email = :email
+                    ");
+                    $requete->execute(["email" => $email]);
                 }
 
 
