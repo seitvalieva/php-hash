@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     if(isset($_GET["action"])){         // verifier que l'action est defini
         switch($_GET["action"]) {
 
@@ -71,6 +73,7 @@
                     $email =  filter_input(INPUT_POST, "email", FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_EMAIL); // FILTERING the inputs of corresponding fields of reg form
                     $password =  filter_input(INPUT_POST, "password1", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+                    // si les filtres sont valides
                     if($email && $password){
                         $requete = $pdo->prepare("
                             SELECT *
@@ -79,7 +82,24 @@
                         ");
                         $requete->execute(["email" => $email]);
                         $user = $requete->fetch();
-                        var_dump($user); die;
+                        // var_dump($user); die;
+
+                        if($user){                          // if user exists in db
+                            $hash = $user["password"];      // get password from db
+                            if(password_verify($password, $hash)) {         // verify that entered password is correct 
+
+                                 $_SESSION["user"] = $user;                    // session is open and user is connected
+
+                                 header("Location: home.php"); exit; //"Location: index.php?ctrl=home&action=index.php&id=" for mvc structure
+                            } else {
+                                header("Location: login.php"); exit;
+                                // message utilisateur inconnu ou mdp incorrect
+                            }
+                        } else {
+                            // message utilisateur inconnu ou mdp incorrect
+                            header("Location: login.php"); exit;
+                        }
+
                     }
 
                 }
