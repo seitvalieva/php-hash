@@ -26,7 +26,7 @@
                     
                     //if user exists
                     if($user) {
-                        header("Location: register.php"); exit;
+                        header("Location: register.php"); exit;         // redirect the user to registration page
                     } else {
                         // var_dump("User doesnt exist"); die;
                         // insert the user in the database
@@ -43,7 +43,7 @@
                                 "email" => $email,
                                 "password" => password_hash($password, PASSWORD_DEFAULT)
                             ]);
-                            header("Location: login.php"); exit;
+                            header("Location: login.php"); exit;        // redirect the user to login page
                         }
                     }
                 }
