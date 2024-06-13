@@ -1,9 +1,10 @@
 <?php
 
-    if(isset($_GET["action"])){         // verifier que l action est defini
+    if(isset($_GET["action"])){         // verifier que l'action est defini
         switch($_GET["action"]) {
 
             case "register":
+                // connection to the database
                 $pdo = new PDO("mysql:host=localhost;dbname=php_hash_sev;charset=utf8", "root", "");
 
                 $pseudo =  filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_FULL_SPECIAL_CHARS);     // name attribute of the same input field
@@ -20,6 +21,31 @@
                         WHERE email = :email
                     ");
                     $requete->execute(["email" => $email]);
+
+                    $user = $requete->fetch();  // store the result of the request in $user
+                    
+                    //if user exists
+                    if($user) {
+                        header("Location: register.php"); exit;
+                    } else {
+                        // var_dump("User doesnt exist"); die;
+                        // insert the user in the database
+
+                        if($password == $password2 && strlen($password) >= 8) {     // VERIFY both passwords are identic, and length of the pass min 8
+                            
+                            $insertUser = $pdo->prepare("
+                                INSERT INTO user (pseudo, email, password) 
+                                VALUES (:pseudo, :email, :password)
+                            ");
+                            
+                            $insertUser->execute([
+                                "pseudo" => $pseudo,
+                                "email" => $email,
+                                "password" => password_hash($password, PASSWORD_DEFAULT)
+                            ]);
+                            header("Location: login.php"); exit;
+                        }
+                    }
                 }
 
 

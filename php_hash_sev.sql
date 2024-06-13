@@ -22,13 +22,15 @@ USE `php_hash_sev`;
 -- Listage de la structure de table php_hash_sev. user
 CREATE TABLE IF NOT EXISTS `user` (
   `id_user` int NOT NULL AUTO_INCREMENT,
-  `pseudo` varchar(50) COLLATE utf8mb4_bin NOT NULL DEFAULT '0',
-  `email` varchar(255) COLLATE utf8mb4_bin NOT NULL DEFAULT '0',
-  `password` varchar(255) COLLATE utf8mb4_bin NOT NULL DEFAULT '0',
+  `pseudo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Listage des données de la table php_hash_sev.user : ~0 rows (environ)
+-- Listage des données de la table php_hash_sev.user : ~1 rows (environ)
+INSERT INTO `user` (`id_user`, `pseudo`, `email`, `password`) VALUES
+	(1, 'nick', 'nick@example.com', 'xxx');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
