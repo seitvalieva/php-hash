@@ -109,9 +109,13 @@
 
             break;
 
+            case "profile":
+                header("Location: profile.php"); exit;
+
 
             case "logout":
-                // connection to the app
+                unset($_SESSION["user"]);
+                header("Location: home.php"); exit;
 
             break;
         }

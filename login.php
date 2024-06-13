@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Se connecter</h1>
-    <form action=" " method="POST">
+    <form action="traitement.php?action=home" method="POST">
 
         <label for="email">Email</label>
         <input type="email" name="email" id="email"><br><br>
